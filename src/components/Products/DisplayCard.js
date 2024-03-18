@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Button, Card, CardActions, CardContent, CardMedia, IconButton, Stack, Typography } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Link } from 'react-router-dom';
 
 const DisplayCard = () => {
     const[user] = useState("admin"); 
 
-    const[product, setProductDetails] = useState({
+    const[product] = useState({
+        id : 1320,
         name : "Shoes",
         price : "1000",
         description : "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
@@ -33,7 +35,7 @@ const DisplayCard = () => {
                 </Typography>
             </CardContent>
             <CardActions sx={{display : 'flex', flexDirection : 'row', justifyContent : 'space-between'}}>
-                <Button size="small" variant="contained" sx={{backgroundColor : "#3f51b5"}}>Buy</Button>
+            <Link to={`/products/${product.id}`}><Button size="small" variant="contained" sx={{backgroundColor : "#3f51b5"}}>Buy</Button></Link>
                    {
                     user === "admin" ?
                       <div>
