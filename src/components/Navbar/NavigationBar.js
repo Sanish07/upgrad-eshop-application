@@ -2,11 +2,9 @@ import { AppBar, Box, Button, Typography, Stack, TextField, InputAdornment } fro
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { Link } from "react-router-dom";
-import { useState } from "react";
 
 
-const NavigationBar = ({page}) => {
-    const [user, setUser] = useState("admin");
+const NavigationBar = ({page, user}) => {
     return <>
       <Box sx={{flexGrow : 1}}>
         <AppBar position="static" sx={{backgroundColor : "#3f51b5", padding : "16px 28px"}}>
