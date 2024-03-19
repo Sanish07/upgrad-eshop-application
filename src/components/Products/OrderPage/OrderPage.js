@@ -1,7 +1,8 @@
-import { Stack, Typography, Box, Stepper, Step, StepLabel } from "@mui/material";
+import { Stack, Box, Stepper, Step, StepLabel } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import SelectAddressPage from "./SelectAddressPage";
+import ConfirmOrderPage from "./ConfirmOrderPage";
 
 const OrderPage = () => {
   const location = useLocation();
@@ -33,14 +34,14 @@ const OrderPage = () => {
         order page without going through actual order placing stage, they are redirected to /products route*/
   });
 
-  console.log(location.state); //Getting product details from useLocation hook's state (coming from ProductDetails Component) 
+  //console.log(location.state); //Getting product details from useLocation hook's state (coming from ProductDetails Component) 
 
   return (
     <>
       <Stack
         direction={"column"}
         minHeight={"100vh"}
-        justifyContent={"center"}
+        justifyContent={"flex-start"}
         alignItems={"center"}
         useFlexGap>
 
@@ -60,8 +61,8 @@ const OrderPage = () => {
 
         {
             (activeStep === 1) 
-            ? <SelectAddressPage addresses={addresses} setStep={(num) => setActiveStep(num)}/> //Fetch addresses from calling API
-            : <h1>Confirm Order Page</h1>
+            ? <SelectAddressPage addresses={addresses} setStep={(num) => setActiveStep(num)}/> //Fetch addresses by calling the API
+            : <ConfirmOrderPage productInfo={location.state} setStep={(num) => setActiveStep(num)}/>
         }
 
       </Stack>

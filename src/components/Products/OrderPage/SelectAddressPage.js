@@ -74,7 +74,10 @@ const SelectAddressPage = ({ addresses, setStep }) => {
           <TextField sx={{ mt : 1, width : '27vw' }} label="State" variant="outlined" autoComplete='on' required/> 
           <TextField sx={{ mt : 1, width : '27vw' }} label="Landmark" variant="outlined" autoComplete='on'/> 
           <TextField sx={{ mt : 1, width : '27vw' }} label="Zip Code" variant="outlined" autoComplete='on' required/>
+          
           <Button variant="contained" sx={{backgroundColor : '#3f51b5', marginTop : 2, width : '27vw'}}> SAVE ADDRESS </Button>
+          {/* Will Call API to add a new address */}
+
           <Stack direction={'row'} justifyContent={'center'} alignItems={'center'} width={'27vw'} margin={'4vh auto 5vh'}>
               <Button variant="text" onClick={handleReturnToItems} sx={{ width : 1/5, color : 'black', backgroundColor : '#EEEEEE'}}> BACK </Button>
               {/* Go Back to Product Page */}
