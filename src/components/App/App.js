@@ -6,6 +6,7 @@ import Signup from '../Signup/Signup';
 import NavigationBar from '../Navbar/NavigationBar';
 import Main from '../Products/Main';
 import ProductDetails from '../Products/ProductDetails';
+import OrderPage from '../Products/OrderPage/OrderPage';
 
 function App() {
   // const allusers = useSelector(state => state.users);
@@ -29,6 +30,7 @@ function App() {
         <Route path="signup" element={<Signup />}/>
         <Route path='products' element={<Main/>}/>
         <Route path='products/:id' element={<ProductDetails/>}/>
+        <Route path='products/:id/order' element={<OrderPage/>}/>
       </Routes>
     </>
   );

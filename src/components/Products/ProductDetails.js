@@ -3,6 +3,7 @@ import CategoriesToggle from './CategoriesToggle';
 import { useState } from 'react';
 import { Chip, Stack, Typography, TextField, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
 const ProductDetails = () => {
     const[product] = useState({
@@ -15,10 +16,25 @@ const ProductDetails = () => {
         category : 'accessories'
     });
 
+    const[quantity, setQuantity] = useState("");
+
     const ImageStyled = styled('img')({
         maxWidth : '30vw',
         maxHeight : '50vh'
     });
+
+    const navigate = useNavigate();
+
+    const handleOrderRedirect = () =>{
+        const qty = parseInt(quantity);
+        if(qty && qty <= product.availableQuantity){
+            navigate(`/products/${product.id}/order`, {
+                state : {productQty : qty, productDetails : product}
+            });
+        } else{
+            console.log("Please enter a number with quantity less than available stock.");
+        }
+    }
 
     return(
         <>
@@ -33,8 +49,8 @@ const ProductDetails = () => {
                 <Typography sx={{ mt : 2 }} variant='body2'>Category: <span style={{fontWeight : 'bold'}}> {product.category.charAt(0).toUpperCase() + product.category.slice(1)}</span></Typography>
                 <Typography sx={{ maxWidth : '35vw', fontStyle : 'italic', color : '#31304D', mt : 2 }} variant='body2'>{product.description}</Typography>
                 <Typography sx={{ mt : 2, color : 'red' }} variant='h6'>₹{product.price}</Typography>
-                <TextField sx={{ mt : 4, width : 1/2 }} size='small' label="Enter Quantity" variant="outlined" autoComplete='off' required/> 
-                <Button variant="contained" size='small' sx={{backgroundColor : '#3f51b5', marginTop : 2, width : 3/14}}> PLACE ORDER </Button>
+                <TextField sx={{ mt : 4, width : 1/2 }} size='small' value={quantity} onChange={(e)=>setQuantity(e.target.value)} label="Enter Quantity" variant="outlined" autoComplete='off' required/> 
+                <Button variant="contained" size='small' onClick={handleOrderRedirect} sx={{backgroundColor : '#3f51b5', marginTop : 2, width : 3/14}}> PLACE ORDER </Button>
              </Stack>
            </Stack>
         </>
