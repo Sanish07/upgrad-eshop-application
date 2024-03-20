@@ -4,6 +4,7 @@ import { useState } from "react";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { styled } from '@mui/material/styles';
 import { useNavigate, useParams } from "react-router-dom";
+import MessageBox from "../../TimedMessageBox/MessageBox";
 
 const SelectAddressPage = ({ addresses, setStep }) => {
   const [addressValue, setAddressValue] = useState("");
@@ -24,6 +25,15 @@ const SelectAddressPage = ({ addresses, setStep }) => {
 
   const handleReturnToItems = () => { //Function to return to Product Page
     navigate(`/products/${id}`);
+  }
+
+  const[messageBoxState, setShowMessage] = useState(false);
+
+  const handleOpenBox = () => { //Needs to be created to switch the message box state to first show it and after an interval hide it
+    setShowMessage(true);
+    setTimeout(()=>{
+      setShowMessage(false);
+    }, 2000);
   }
 
   return (
@@ -84,6 +94,10 @@ const SelectAddressPage = ({ addresses, setStep }) => {
 
               <Button variant="contained" onClick={handleBackStep} sx={{backgroundColor : '#3f51b5', width : 1/5, ml : 2}}> NEXT </Button>
               {/* Proceed to Confirm Order Page */}
+
+              {/* Button for testing the message box functionality */}
+              <Button variant="contained" onClick={handleOpenBox} sx={{backgroundColor : '#3f51b5', width : 1/5, ml : 2}}> Check Dialog </Button>
+              <MessageBox messageState={messageBoxState} message={'Please select address!'} bgcolor={'blue'}/>
           </Stack>
 
       </Stack>   

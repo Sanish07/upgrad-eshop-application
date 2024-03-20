@@ -4,9 +4,10 @@ import { Stack, Button, Paper, Typography } from '@mui/material';
 const ConfirmOrderPage = ({setStep, productInfo}) => {
 
     const {productQty, productDetails} = productInfo;
+    const totalPrice = productQty * productDetails.price;
 
     const address = {
-        name : "Lucknow Home",
+        name : "Ryan Sommerfield",
         contactNumber : "1234567890",
         street : "Police Line",
         landmark : "Futala Lake",
@@ -38,7 +39,7 @@ const ConfirmOrderPage = ({setStep, productInfo}) => {
                 <Typography variant='body2' sx={{mt : 2}}>Quantity: <span style={{fontWeight : 'bold'}}>{productQty}</span></Typography>
                 <Typography variant='body2' sx={{mt : 2}}>Category: <span style={{fontWeight : 'bold'}}>{productDetails.category.charAt(0).toUpperCase() + productDetails.category.slice(1)}</span></Typography>
                 <Typography variant='subtitle2' sx={{mt : 4, fontStyle : 'italic'}}>{productDetails.description}</Typography>
-                <Typography variant='h5' sx={{mt : 4, color : 'red'}}>Total Price : ₹{productDetails.price}</Typography>
+                <Typography variant='h5' sx={{mt : 4, color : 'red'}}>Total Price : ₹{totalPrice}</Typography>
             </Paper>
 
             {/* Right Side Sub-Section */}

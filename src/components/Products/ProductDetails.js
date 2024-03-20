@@ -27,7 +27,7 @@ const ProductDetails = () => {
 
     const handleOrderRedirect = () =>{
         const qty = parseInt(quantity);
-        if(qty && qty <= product.availableQuantity){
+        if(qty && qty <= product.availableQuantity && qty > 0){
             navigate(`/products/${product.id}/order`, {
                 state : {productQty : qty, productDetails : product}
             });

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Login from '../Login/Login';
-import {Route, Routes, useLocation} from "react-router-dom";
+import {Route, Routes, Navigate ,useLocation} from "react-router-dom";
 import Signup from '../Signup/Signup';
 import NavigationBar from '../Navbar/NavigationBar';
 import Main from '../Products/Main';
@@ -26,6 +26,7 @@ function App() {
     <>
     <NavigationBar page={navparam} user={userRole}/>
       <Routes>
+        <Route path='/' element={<Navigate to='/login'/>}/>
         <Route path="login" element={<Login />}/>
         <Route path="signup" element={<Signup />}/>
         <Route path='products' element={<Main/>}/>
