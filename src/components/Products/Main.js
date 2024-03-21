@@ -2,18 +2,33 @@ import React, { useEffect, useState } from "react";
 import CategoriesToggle from "./CategoriesToggle";
 import DisplayCard from "./DisplayCard";
 import ProductSort from "./ProductSort";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import MessageBox from "../TimedMessageBox/MessageBox";
+import { useDispatch, useSelector } from "react-redux";
+import { checkLoginSessionIsActive } from "../../common/store/actions/loginActions";
 
 const Main = () => {
 
     const location = useLocation();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const checkLoggedIn = useSelector(state => state.loginStore);
 
     const[messageBoxState, setShowMessage] = useState(false);
     const[messageDetails, setMessageDetails] = useState({
       messageText : '',
       messageColor : ''
     });
+
+    useEffect(()=>{
+      dispatch(checkLoginSessionIsActive());
+    },[dispatch]);
+
+    useEffect(()=>{
+      if(checkLoggedIn.sessionIsActive === false){
+        navigate('/login');
+      }
+    },[checkLoggedIn.sessionIsActive]);
 
     const handleOpenBox = () => { //Needs to be created to switch the message box state to first show it and after an interval hide it
         setShowMessage(true);

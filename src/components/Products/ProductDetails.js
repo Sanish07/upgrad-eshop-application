@@ -1,11 +1,27 @@
 import React from 'react';
 import CategoriesToggle from './CategoriesToggle';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Chip, Stack, Typography, TextField, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import { checkLoginSessionIsActive } from '../../common/store/actions/loginActions';
 
 const ProductDetails = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const checkLoggedIn = useSelector(state => state.loginStore);
+
+    useEffect(()=>{
+        dispatch(checkLoginSessionIsActive());
+      },[dispatch]);
+  
+      useEffect(()=>{
+        if(checkLoggedIn.sessionIsActive === false){
+          navigate('/login');
+        }
+      },[checkLoggedIn.sessionIsActive]);
+
     const[product] = useState({
         id : 1320,
         name : "Shoes",
@@ -22,8 +38,6 @@ const ProductDetails = () => {
         maxWidth : '30vw',
         maxHeight : '50vh'
     });
-
-    const navigate = useNavigate();
 
     const handleOrderRedirect = () =>{
         const qty = parseInt(quantity);

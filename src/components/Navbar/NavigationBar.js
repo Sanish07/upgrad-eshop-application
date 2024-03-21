@@ -1,10 +1,28 @@
 import { AppBar, Box, Button, Typography, Stack, TextField, InputAdornment } from "@mui/material";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import { Link } from "react-router-dom";
+import { Link, useLocation} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutSession } from "../../common/store/actions/loginActions";
+import { useEffect } from "react";
 
 
 const NavigationBar = ({page, user}) => {
+
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const { pathname } = location;
+  const logoutEnabled = (pathname === '/products');
+
+  const handleLogout = () => {
+    if(logoutEnabled){
+      dispatch(logoutSession());
+      window.location.reload();
+    } else{
+      alert('Cannot logout on order processing pages, move back to Homepage from navigation bar for logging out.');
+    }
+  };
+
     return <>
       <Box sx={{flexGrow : 1}}>
         <AppBar position="static" sx={{backgroundColor : "#3f51b5", padding : "16px 28px"}}>
@@ -39,12 +57,12 @@ const NavigationBar = ({page, user}) => {
                             <Stack useFlexGap direction="row" alignItems="center" spacing={3}> 
                             <Link style={{color : "white", fontSize : "0.9rem"}} to="/products">Home</Link>
                             <Link style={{color : "white", fontSize : "0.9rem"}} to="/addproduct">Add product</Link>
-                            <Button variant="contained" color="error">LOGOUT</Button>
+                            <Button onClick={handleLogout} variant="contained" color="error">LOGOUT</Button>
                             </Stack> 
                             :
                             <Stack useFlexGap direction="row" alignItems="center" spacing={3}> 
                             <Link style={{color : "white", fontSize : "0.9rem"}} to="/products">Home</Link>
-                            <Button variant="contained" color="error">LOGOUT</Button>
+                            <Button onClick={handleLogout} variant="contained" color="error">LOGOUT</Button>
                             </Stack> 
                     }
                     

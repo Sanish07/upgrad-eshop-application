@@ -15,3 +15,15 @@ export const addLoginDetails = (email,password) => dispatch => {
        }) 
     })
 };
+
+export const checkLoginSessionIsActive = () => {
+    return {
+        type : "CHECK_SESSION_ACTIVE"
+    };
+};
+
+export const logoutSession = () => {
+    return {
+        type : "LOGOUT_SESSION"
+    }
+}

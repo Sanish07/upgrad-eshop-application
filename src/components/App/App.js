@@ -27,11 +27,11 @@ function App() {
     <NavigationBar page={navparam} user={userRole}/>
       <Routes>
         <Route path='/' element={<Navigate to='/login'/>}/>
-        <Route path="login" element={<Login />}/>
-        <Route path="signup" element={<Signup />}/>
-        <Route path='products' element={<Main/>}/>
-        <Route path='products/:id' element={<ProductDetails/>}/>
-        <Route path='products/:id/order' element={<OrderPage/>}/>
+        <Route path="/login" element={<Login />}/>
+        <Route path="/signup" element={<Signup />}/>
+        <Route path='/products' element={<Main/>}/>
+        <Route path='/products/:id' element={<ProductDetails/>}/>
+        <Route path='/products/:id/order' element={<OrderPage/>}/>
       </Routes>
     </>
   );

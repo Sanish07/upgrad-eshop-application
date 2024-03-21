@@ -1,7 +1,8 @@
 const initialState = {
     response : {},
     requestMade : false,
-    userDetails : {}
+    userDetails : {},
+    sessionIsActive : null
 }
 
 const loginReducer = (state = initialState, action) => {
@@ -12,6 +13,28 @@ const loginReducer = (state = initialState, action) => {
                 response : {...action.responseLogin},
                 requestMade : action.requestMade
             };
+        }
+
+        case "CHECK_SESSION_ACTIVE":{
+            let token = sessionStorage.getItem('loginToken');
+            if(token){
+                return{
+                    ...state,
+                    sessionIsActive : true
+                }
+            }
+            return{
+                ...state,
+                sessionIsActive : false
+            }
+        }
+
+        case "LOGOUT_SESSION":{
+            sessionStorage.removeItem("loginToken");
+            return{
+                ...state,
+                sessionIsActive : false
+            }
         }
 
         default:{

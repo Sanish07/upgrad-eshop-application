@@ -5,7 +5,7 @@ import { pink } from "@mui/material/colors";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addLoginDetails} from '../../common/store/actions/loginActions';
+import { addLoginDetails, checkLoginSessionIsActive} from '../../common/store/actions/loginActions';
 import { createSession } from '../../common/services/loginService';
 
 const Login = () => {
@@ -13,13 +13,12 @@ const Login = () => {
     const[password, setPassword] = useState('');
 
     const dispatch = useDispatch();
-    const responseFromStore = useSelector(state => state.loginStore);
+    const responseFromStore = useSelector(state => state.loginStore); //Getting response from store post form submission
     const navigate = useNavigate();
 
     useEffect(() => {
         if(responseFromStore.requestMade){
-           if(responseFromStore.response.data){ 
-             //Call api to get the user details with acquired token after this
+           if(responseFromStore.response.data){ //If login was successful, new session is created and user is directed to Main page, i.e. Products page
              createSession(responseFromStore);
              navigate('/products');
            }
@@ -30,7 +29,17 @@ const Login = () => {
         }
     }, [responseFromStore]);
 
-    const handleLogin = () =>{
+    useEffect(()=>{
+        dispatch(checkLoginSessionIsActive());
+    },[dispatch]);
+  
+      useEffect(()=>{
+        if(responseFromStore.sessionIsActive === true){
+          navigate('/products');
+        }
+      },[responseFromStore.sessionIsActive]);
+
+    const handleLogin = () =>{ //Client side input validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; //Matching the email state with regex for email validation
 
         if(!emailRegex.test(email)) {
@@ -43,7 +52,7 @@ const Login = () => {
            return; // Prevent form submission if password is invalid
         }
 
-        dispatch(addLoginDetails(email,password));
+        dispatch(addLoginDetails(email,password)); //Setting the redux store values based on response from backend 
     }
 
 
