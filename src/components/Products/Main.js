@@ -4,8 +4,11 @@ import DisplayCard from "./DisplayCard";
 import ProductSort from "./ProductSort";
 import { useLocation, useNavigate } from "react-router-dom";
 import MessageBox from "../TimedMessageBox/MessageBox";
+import Grid from '@mui/material/Grid';
 import { useDispatch, useSelector } from "react-redux";
 import { checkLoginSessionIsActive } from "../../common/store/actions/loginActions";
+import { Box, Stack } from "@mui/material";
+import { renderCategories } from "../../common/store/actions/productActions";
 
 const Main = () => {
 
@@ -13,6 +16,7 @@ const Main = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const checkLoggedIn = useSelector(state => state.loginStore);
+    const pdtStore = useSelector(state => state.productStore);
 
     const[messageBoxState, setShowMessage] = useState(false);
     const[messageDetails, setMessageDetails] = useState({
@@ -22,6 +26,7 @@ const Main = () => {
 
     useEffect(()=>{
       dispatch(checkLoginSessionIsActive());
+      dispatch(renderCategories());
     },[dispatch]);
 
     useEffect(()=>{
@@ -49,9 +54,15 @@ const Main = () => {
 
     return(
         <>
-          <CategoriesToggle/>
+          <CategoriesToggle data={pdtStore.responseCategories.data}/>
           <ProductSort/>
-          <DisplayCard/>
+          <Grid justifyContent={'center'} container>
+          {Array.from(Array(4)).map((_, index) => (
+              <Grid item md={4} key={index}>
+                   <DisplayCard/>
+              </Grid>
+          ))}
+          </Grid>
           <MessageBox messageState={messageBoxState} message={messageDetails.messageText} bgcolor={messageDetails.messageColor}/>
         </>
     )
