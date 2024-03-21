@@ -17,7 +17,7 @@ const SelectAddressPage = ({ addresses, setStep }) => {
     paddingLeft: '8px', // Adjust padding for the icon
   });
 
-  const handleBackStep = () => { //Function to take the user to Confirm Order Page(Step 3)
+  const handleNextStep = () => { //Function to take the user to Confirm Order Page(Step 3)
     // ... set address state in redux store here ... 
     if(addressValue.length !== 0) setStep(2);
     else console.log('Please Select a address');
@@ -92,11 +92,11 @@ const SelectAddressPage = ({ addresses, setStep }) => {
               <Button variant="text" onClick={handleReturnToItems} sx={{ width : 1/5, color : 'black', backgroundColor : '#EEEEEE'}}> BACK </Button>
               {/* Go Back to Product Page */}
 
-              <Button variant="contained" onClick={handleBackStep} sx={{backgroundColor : '#3f51b5', width : 1/5, ml : 2}}> NEXT </Button>
+              <Button variant="contained" onClick={handleNextStep} sx={{backgroundColor : '#3f51b5', width : 1/5, ml : 2}}> NEXT </Button>
               {/* Proceed to Confirm Order Page */}
 
-              {/* Button for testing the message box functionality */}
               <Button variant="contained" onClick={handleOpenBox} sx={{backgroundColor : '#3f51b5', width : 1/5, ml : 2}}> Check Dialog </Button>
+              {/* Button for testing the message box functionality */}
               <MessageBox messageState={messageBoxState} message={'Please select address!'} bgcolor={'blue'}/>
           </Stack>
 
