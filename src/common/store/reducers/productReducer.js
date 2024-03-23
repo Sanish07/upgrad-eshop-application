@@ -1,6 +1,7 @@
 const initialState = {
     responseCategories : [],
-    responseProducts : []
+    responseProducts : [],
+    productsView : []
 };
 
 const productReducer = (state = initialState, action) => {
@@ -15,7 +16,20 @@ const productReducer = (state = initialState, action) => {
         case "INIT_PRODUCTS":{
             return {
                 ...state,
-                responseProducts : {...action.responseProductService}
+                responseProducts : {...action.responseProductService},
+                productsView : [...action.responseProductService.data]
+            }
+        }
+
+        case "SET_PRODUCTS_VIEW":{
+            let newPdtArray = state.responseProducts.data.filter((item)=>{
+                if(!item.name.toLowerCase().includes(action.searchString.toLowerCase())){}
+                else return item;
+            });
+
+            return{
+                ...state,
+                productsView : [...newPdtArray]
             }
         }
 

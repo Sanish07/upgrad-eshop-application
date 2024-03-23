@@ -10,7 +10,7 @@ import { checkLoginSessionIsActive } from "../../common/store/actions/loginActio
 import { Box, Stack } from "@mui/material";
 import { renderCategories, renderProducts } from "../../common/store/actions/productActions";
 
-const Main = () => {
+const Main = ({user}) => {
 
     const location = useLocation();
     const dispatch = useDispatch();
@@ -19,11 +19,14 @@ const Main = () => {
     const pdtStore = useSelector(state => state.productStore);
 
     const[messageBoxState, setShowMessage] = useState(false); //For displaying feedback when redirected from order page
-    const[productCatalogue, setProductCatalogue] = useState([]);
+    const[productCatalogue, setProductCatalogue] = useState([]); //Conatins the product data to be displayed on main page
+    const[refreshCat, setRefreshCat] = useState(false);
+
     const[messageDetails, setMessageDetails] = useState({
       messageText : '',
       messageColor : ''
     });
+    const[activeCategory, setActiveCategory] = useState("all");
 
     useEffect(()=>{
       dispatch(checkLoginSessionIsActive());
@@ -44,30 +47,47 @@ const Main = () => {
         }, 2000);
     }
 
-    useEffect(()=>{
-      setProductCatalogue(pdtStore.responseProducts.data);
-    },[pdtStore.responseProducts.data]);
+    // useEffect(()=>{
+    //   setProductCatalogue(pdtStore.responseProducts.data);
+    // },[pdtStore.responseProducts.data]);
+
+    useEffect(()=>{ //Set the products catalogue on the value of searched query
+      setProductCatalogue(pdtStore.productsView);
+    },[pdtStore.productsView, activeCategory]);
+
+    useEffect(()=>{ //For displaying the product catalogue when when category filter is applied
+      if(activeCategory === 'all'){
+        setProductCatalogue(pdtStore.productsView);
+      } else{
+        let newCatArr = pdtStore.productsView.filter((item)=>{
+          if(item.category === activeCategory) return item;
+        });
+        setProductCatalogue(newCatArr);
+      }
+    },[activeCategory]);
 
     useEffect(()=>{
-      // ..step1..
-      //Checking the redirect from order confirmation page is step 2, step 1 is checking the login status
-      console.log(location.state);
+      setProductCatalogue(productCatalogue);
+    },[refreshCat]);
+
+    useEffect(()=>{
+      console.log(location.state); 
       if(location.state){
         setMessageDetails({...messageDetails, messageText : location.state.message, messageColor : location.state.color});
-        handleOpenBox();
+        handleOpenBox(); //If the redirect is from order page a feedback will be shown for placed order
       }
     },[location.state]);
 
     return(
         <>
-          <CategoriesToggle data={pdtStore.responseCategories.data}/>
-          <ProductSort/>
+          <CategoriesToggle setCategory={setActiveCategory} data={pdtStore.responseCategories.data}/>
+          <ProductSort pdtCat={productCatalogue} setProductCatalogue={setProductCatalogue} refreshCat ={refreshCat} setRefreshCat={setRefreshCat}/>
           <Grid sx={{padding : '0vh 3vw 5vh 10vw'}} justifyContent={'center'} container>
           {
             (productCatalogue) 
              ? productCatalogue.map((product,index)=>
               <Grid item md={4} key={index}>
-                   <DisplayCard key={product.id} productData={product}/>
+                   <DisplayCard user={user} key={product.id} productData={product}/>
               </Grid>)
              :<></>
           }

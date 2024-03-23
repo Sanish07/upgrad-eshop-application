@@ -27,3 +27,10 @@ export const renderProducts = () => dispatch =>{
         })
     })
 }
+
+export const setProductsView = (searchString) => {
+    return{
+        type : "SET_PRODUCTS_VIEW",
+        searchString
+    }
+}

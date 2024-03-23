@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Card, CardActions, CardContent, CardMedia, IconButton, Stack, Typography } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const DisplayCard = ({productData}) => {
-    const[user] = useState("admin"); 
+
+const DisplayCard = ({productData, user}) => {
+  
     return (
         <Card key={productData.id} sx={{width : 315, mt : '4vh', mb : '3vh'}}>
             <CardMedia 

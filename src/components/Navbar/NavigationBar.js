@@ -4,7 +4,8 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { Link, useLocation} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutSession } from "../../common/store/actions/loginActions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { setProductsView } from "../../common/store/actions/productActions";
 
 
 const NavigationBar = ({page, user}) => {
@@ -14,9 +15,17 @@ const NavigationBar = ({page, user}) => {
   const { pathname } = location;
   const logoutEnabled = (pathname === '/products');
 
+  const [searchStr, setSearchStr] = useState("");
+
+  const handleSearchItem = (event) => {
+    setSearchStr(event.target.value);
+    dispatch(setProductsView(event.target.value));
+  }
+
   const handleLogout = () => {
     if(logoutEnabled){
       dispatch(logoutSession());
+      window.location.reload();
       window.location.reload();
     } else{
       alert('Cannot logout on order processing pages, move back to Homepage from navigation bar for logging out.');
@@ -34,7 +43,7 @@ const NavigationBar = ({page, user}) => {
                     {
                         (page === "login" || page === "signup")
                         ? <></>
-                        : <TextField placeholder="Search" hiddenLabel size="small" sx={{backgroundColor : "rgba(255,255,255,0.2)", borderRadius : "5px", width : "25%"}} InputProps={{
+                        : <TextField onChange={handleSearchItem} value={searchStr} placeholder="Search" hiddenLabel size="small" sx={{backgroundColor : "rgba(255,255,255,0.2)", borderRadius : "5px", width : "25%"}} InputProps={{
                             startAdornment: (
                             <InputAdornment position="start">
                               <SearchOutlinedIcon sx={{color : "white"}}/>

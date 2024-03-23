@@ -3,7 +3,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 
-const CategoriesToggle = ({data}) => {
+const CategoriesToggle = ({data, setCategory}) => {
 
 
   const[categories, setCategories] = useState(["all"]);
@@ -11,6 +11,7 @@ const CategoriesToggle = ({data}) => {
 
   const handleCategoryChange = (e) => {
     setActiveCategory(e.target.value);
+    setCategory(e.target.value)
   }
 
   useEffect(()=>{

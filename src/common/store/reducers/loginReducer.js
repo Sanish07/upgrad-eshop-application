@@ -11,7 +11,8 @@ const loginReducer = (state = initialState, action) => {
             return{
                 ...state,
                 response : {...action.responseLogin},
-                requestMade : action.requestMade
+                requestMade : action.requestMade,
+                userDetails : {...action.responseLogin.data}
             };
         }
 
