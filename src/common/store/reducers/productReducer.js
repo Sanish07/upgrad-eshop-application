@@ -1,7 +1,8 @@
 const initialState = {
     responseCategories : [],
     responseProducts : [],
-    productsView : []
+    productsView : [],
+    activeProduct : {}
 };
 
 const productReducer = (state = initialState, action) => {
@@ -30,6 +31,13 @@ const productReducer = (state = initialState, action) => {
             return{
                 ...state,
                 productsView : [...newPdtArray]
+            }
+        }
+
+        case "SET_ACTIVE_PRODUCT":{
+            return{
+                ...state,
+                activeProduct : {...action.productResponse}
             }
         }
 

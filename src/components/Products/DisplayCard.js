@@ -2,12 +2,26 @@ import React, { useState, useEffect } from 'react';
 import { Button, Card, CardActions, CardContent, CardMedia, IconButton, Stack, Typography } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setActiveProduct } from '../../common/store/actions/productActions';
 
 
 const DisplayCard = ({productData, user}) => {
-  
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleBuyProduct = () => {
+    dispatch(setActiveProduct(productData.id));
+    navigate(`/products/${productData.id}`
+    // ,{
+    //   state : {
+    //     productData
+    //   }
+    // }
+    );
+  };
+
     return (
         <Card key={productData.id} sx={{width : 315, mt : '4vh', mb : '3vh'}}>
             <CardMedia 
@@ -30,7 +44,7 @@ const DisplayCard = ({productData, user}) => {
                 </Typography>
             </CardContent>
             <CardActions sx={{display : 'flex', flexDirection : 'row', justifyContent : 'space-between'}}>
-            <Link to={`/products/${productData.id}`}><Button size="small" variant="contained" sx={{backgroundColor : "#3f51b5"}}>Buy</Button></Link>
+            <Button onClick={handleBuyProduct} size="small" variant="contained" sx={{backgroundColor : "#3f51b5"}}>Buy</Button>
                    {
                     user === "admin" ?
                       <div>

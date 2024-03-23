@@ -47,9 +47,6 @@ const Main = ({user}) => {
         }, 2000);
     }
 
-    // useEffect(()=>{
-    //   setProductCatalogue(pdtStore.responseProducts.data);
-    // },[pdtStore.responseProducts.data]);
 
     useEffect(()=>{ //Set the products catalogue on the value of searched query
       setProductCatalogue(pdtStore.productsView);

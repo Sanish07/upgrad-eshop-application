@@ -1,4 +1,4 @@
-import { fetchCategoriesFromAPI, fetchProductsFromAPI } from "../../services/productService";
+import { fetchCategoriesFromAPI, fetchProductsFromAPI, getProductFromAPI } from "../../services/productService";
 
 export const renderCategories = () => dispatch => {
     fetchCategoriesFromAPI().then((response)=>{
@@ -33,4 +33,18 @@ export const setProductsView = (searchString) => {
         type : "SET_PRODUCTS_VIEW",
         searchString
     }
+}
+
+export const setActiveProduct = (productID) => dispatch => {
+    getProductFromAPI(productID).then((productResponse)=>{
+        dispatch({
+            type : "SET_ACTIVE_PRODUCT",
+            productResponse
+        })
+    }).catch((productResponse)=>{
+        dispatch({
+            type : "SET_ACTIVE_PRODUCT",
+            productResponse
+        })
+    })
 }
