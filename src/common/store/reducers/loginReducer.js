@@ -16,8 +16,8 @@ const loginReducer = (state = initialState, action) => {
         }
 
         case "CHECK_SESSION_ACTIVE":{
-            let token = sessionStorage.getItem('loginToken');
-            if(token){
+            let userData = sessionStorage.getItem('loginData');
+            if(userData){
                 return{
                     ...state,
                     sessionIsActive : true
@@ -30,6 +30,7 @@ const loginReducer = (state = initialState, action) => {
         }
 
         case "LOGOUT_SESSION":{
+            sessionStorage.removeItem("loginData");
             sessionStorage.removeItem("loginToken");
             return{
                 ...state,

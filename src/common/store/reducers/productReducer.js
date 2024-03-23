@@ -1,5 +1,6 @@
 const initialState = {
-    responseCategories : []
+    responseCategories : [],
+    responseProducts : []
 };
 
 const productReducer = (state = initialState, action) => {
@@ -8,6 +9,13 @@ const productReducer = (state = initialState, action) => {
             return {
                 ...state,
                 responseCategories : {...action.responseCatService}
+            }
+        }
+
+        case "INIT_PRODUCTS":{
+            return {
+                ...state,
+                responseProducts : {...action.responseProductService}
             }
         }
 

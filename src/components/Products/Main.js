@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 import { useDispatch, useSelector } from "react-redux";
 import { checkLoginSessionIsActive } from "../../common/store/actions/loginActions";
 import { Box, Stack } from "@mui/material";
-import { renderCategories } from "../../common/store/actions/productActions";
+import { renderCategories, renderProducts } from "../../common/store/actions/productActions";
 
 const Main = () => {
 
@@ -18,7 +18,8 @@ const Main = () => {
     const checkLoggedIn = useSelector(state => state.loginStore);
     const pdtStore = useSelector(state => state.productStore);
 
-    const[messageBoxState, setShowMessage] = useState(false);
+    const[messageBoxState, setShowMessage] = useState(false); //For displaying feedback when redirected from order page
+    const[productCatalogue, setProductCatalogue] = useState([]);
     const[messageDetails, setMessageDetails] = useState({
       messageText : '',
       messageColor : ''
@@ -27,6 +28,7 @@ const Main = () => {
     useEffect(()=>{
       dispatch(checkLoginSessionIsActive());
       dispatch(renderCategories());
+      dispatch(renderProducts());
     },[dispatch]);
 
     useEffect(()=>{
@@ -43,6 +45,10 @@ const Main = () => {
     }
 
     useEffect(()=>{
+      setProductCatalogue(pdtStore.responseProducts.data);
+    },[pdtStore.responseProducts.data]);
+
+    useEffect(()=>{
       // ..step1..
       //Checking the redirect from order confirmation page is step 2, step 1 is checking the login status
       console.log(location.state);
@@ -56,12 +62,15 @@ const Main = () => {
         <>
           <CategoriesToggle data={pdtStore.responseCategories.data}/>
           <ProductSort/>
-          <Grid justifyContent={'center'} container>
-          {Array.from(Array(4)).map((_, index) => (
+          <Grid sx={{padding : '0vh 3vw 5vh 10vw'}} justifyContent={'center'} container>
+          {
+            (productCatalogue) 
+             ? productCatalogue.map((product,index)=>
               <Grid item md={4} key={index}>
-                   <DisplayCard/>
-              </Grid>
-          ))}
+                   <DisplayCard key={product.id} productData={product}/>
+              </Grid>)
+             :<></>
+          }
           </Grid>
           <MessageBox messageState={messageBoxState} message={messageDetails.messageText} bgcolor={messageDetails.messageColor}/>
         </>

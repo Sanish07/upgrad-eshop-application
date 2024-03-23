@@ -1,6 +1,11 @@
 import Axios from "axios";
 
 export const fetchCategoriesFromAPI = async () => {
-    const url = 'http://localhost:8080/api/products/categories';
+    const url = '/api/products/categories';
+    return await Axios.get(url);
+}
+
+export const fetchProductsFromAPI = async () => {
+    const url = '/api/products';
     return await Axios.get(url);
 }

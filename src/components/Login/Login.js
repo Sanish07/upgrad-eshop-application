@@ -23,8 +23,8 @@ const Login = () => {
              navigate('/products');
            }
            else{ 
-              alert("Login failed due to invalid credentials or server error. Reason : "+responseFromStore.response.message);
-              console.log(responseFromStore.response)
+              alert("Login failed due to invalid credentials or server error");
+              console.log(responseFromStore);
            }
         }
     }, [responseFromStore]);

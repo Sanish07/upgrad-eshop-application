@@ -1,4 +1,4 @@
-import { fetchCategoriesFromAPI } from "../../services/productService";
+import { fetchCategoriesFromAPI, fetchProductsFromAPI } from "../../services/productService";
 
 export const renderCategories = () => dispatch => {
     fetchCategoriesFromAPI().then((response)=>{
@@ -13,3 +13,17 @@ export const renderCategories = () => dispatch => {
        }) 
     });
 };
+
+export const renderProducts = () => dispatch =>{
+    fetchProductsFromAPI().then((response)=>{
+        dispatch({
+            type : "INIT_PRODUCTS",
+            responseProductService : response
+        })
+    }).catch((response)=>{
+        dispatch({
+            type : "INIT_PRODUCTS",
+            responseProductService : response
+        })
+    })
+}

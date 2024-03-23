@@ -4,38 +4,31 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom';
 
-const DisplayCard = () => {
+const DisplayCard = ({productData}) => {
     const[user] = useState("admin"); 
-
-    const[product] = useState({
-        id : 1320,
-        name : "Shoes",
-        price : "1000",
-        description : "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.",
-        imageURL : "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/99486859-0ff3-46b4-949b-2d16af2ad421/custom-nike-dunk-high-by-you-shoes.png"
-    })
-
     return (
-        <Card sx={{width : 325, ml : '7vw', mt : '4vh', mb : '3vh'}}>
+        <Card key={productData.id} sx={{width : 315, mt : '4vh', mb : '3vh'}}>
             <CardMedia 
-            sx={{height : 210}} 
-            image={product.imageURL}
-            title={product.name}/>
-            <CardContent>
+            sx={{width : '100%', maxWidth : '100%'}} 
+            image={productData.imageUrl}
+            title={productData.name}
+            component={'img'}/>
+            
+            <CardContent sx={{minHeight : 120}}>
                 <Stack direction={"row"} justifyContent={"space-between"}>
-                    <Typography gutterBottom variant="h6">
-                        {product.name}
+                    <Typography gutterBottom sx={{fontSize : '1.1rem'}} variant="h6">
+                        {productData.name}
                     </Typography>
-                    <Typography gutterBottom variant="h6">
-                    ₹{product.price}
+                    <Typography gutterBottom sx={{fontSize : '1.1rem'}} variant="h6">
+                    ₹{productData.price}
                     </Typography>
                 </Stack>
-                <Typography variant="body2">
-                  {product.description}
+                <Typography color={'gray'} sx={{fontWeight : 100}} variant="body2">
+                  {productData.description.length > 120 ? productData.description.slice(0,120)+"..." : productData.description}
                 </Typography>
             </CardContent>
             <CardActions sx={{display : 'flex', flexDirection : 'row', justifyContent : 'space-between'}}>
-            <Link to={`/products/${product.id}`}><Button size="small" variant="contained" sx={{backgroundColor : "#3f51b5"}}>Buy</Button></Link>
+            <Link to={`/products/${productData.id}`}><Button size="small" variant="contained" sx={{backgroundColor : "#3f51b5"}}>Buy</Button></Link>
                    {
                     user === "admin" ?
                       <div>
