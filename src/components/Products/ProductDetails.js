@@ -64,6 +64,8 @@ const ProductDetails = () => {
 
     return(
         <>
+           {
+           (product)?
            <Stack direction={'row'} spacing={12} minHeight={'85vh'} justifyContent={'center'} alignItems={'center'}>
              <ImageStyled src={product.imageUrl} alt='image'/>
              <Stack>
@@ -78,6 +80,8 @@ const ProductDetails = () => {
                 <Button variant="contained" size='small' onClick={handleOrderRedirect} sx={{backgroundColor : '#3f51b5', marginTop : 2, width : '8rem'}}> PLACE ORDER </Button>
              </Stack>
            </Stack>
+           :<></>
+           }
         </>
     );
 };
