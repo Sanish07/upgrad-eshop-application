@@ -26,6 +26,7 @@ const Main = ({user}) => {
       messageText : '',
       messageColor : ''
     });
+    
     const[activeCategory, setActiveCategory] = useState("all");
 
     useEffect(()=>{

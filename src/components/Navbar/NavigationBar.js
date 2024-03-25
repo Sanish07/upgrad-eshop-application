@@ -65,7 +65,7 @@ const NavigationBar = ({page, user}) => {
                         (user === "admin") ?
                             <Stack useFlexGap direction="row" alignItems="center" spacing={3}> 
                             <Link style={{color : "white", fontSize : "0.9rem"}} to="/products">Home</Link>
-                            <Link style={{color : "white", fontSize : "0.9rem"}} to="/addproduct">Add product</Link>
+                            <Link style={{color : "white", fontSize : "0.9rem"}} to="/products/add">Add product</Link>
                             <Button onClick={handleLogout} variant="contained" color="error">LOGOUT</Button>
                             </Stack> 
                             :
