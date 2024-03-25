@@ -26,7 +26,6 @@ const ProductSort = ({pdtCat, setProductCatalogue, refreshCat, setRefreshCat}) =
   useEffect(()=>{
     if(sortValue === 'default'){
       setProductCatalogue(pdtCat.reverse());
-      console.log(pdtCat);
     } else if(sortValue === 'newest'){
       setProductCatalogue(pdtCat.reverse());
     } else if(sortValue === 'hightolow'){

@@ -39,12 +39,12 @@ const Signup = () => {
 
         if(userInputs.firstName.length < 1 || userInputs.firstName.length > 25){
             alert('First name length should be between 1-25 characters.');
-            return; // Prevent form submission if password is invalid
+            return; // Prevent form submission if first name is invalid
         }
 
         if(userInputs.lastName.length < 1 || userInputs.lastName.length > 25){
             alert('Last name length should be between 1-25 characters.');
-            return; // Prevent form submission if password is invalid
+            return; // Prevent form submission if last name is invalid
         }
 
         if(!emailRegex.test(userInputs.email)) {
@@ -73,10 +73,10 @@ const Signup = () => {
         }
 
         signNewUserToApp(userInputs).then((response)=>{
-            console.log(response);
+            alert("User added successfully! You can move to login page.")
             window.location.reload();
         }).catch((error)=>{
-            console.log(error);
+            alert("User registration failed! Please try again.");
         });
 
       };

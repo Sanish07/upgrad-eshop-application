@@ -32,7 +32,7 @@ const ConfirmOrderPage = ({setStep, productInfo}) => {
         })
     };
 
-    console.log('product details : '+ JSON.stringify(productInfo));
+    // console.log('product details : '+ JSON.stringify(productInfo));
 
     return(
         <>

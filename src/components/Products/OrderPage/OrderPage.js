@@ -21,13 +21,6 @@ const OrderPage = () => {
     inactive : 'gray'
   };
 
-  const addresses = [
-    {text : "Lucknow, Uttar Pradesh, India", value : "lucknow"},
-    {text : "Nagpur, Maharashtra, India", value : "nagpur"},
-    {text : "Shimla, Himachal Pradesh, India", value : "shimla"},
-    {text : "Delhi, India", value : "delhi"}
-  ]; 
-
   useEffect(() => {
     if (!location.state)
       navigate("/products"); /*If someone directly tries to access 
@@ -61,7 +54,7 @@ const OrderPage = () => {
 
         {
             (activeStep === 1) 
-            ? <SelectAddressPage addresses={addresses} setStep={(num) => setActiveStep(num)}/> //Fetch addresses by calling the API
+            ? <SelectAddressPage setStep={(num) => setActiveStep(num)}/> //Fetch addresses by calling the API
             : <ConfirmOrderPage productInfo={location.state} setStep={(num) => setActiveStep(num)}/>
         }
 

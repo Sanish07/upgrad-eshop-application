@@ -10,7 +10,7 @@ export const loginToApp = async (email,password) => {
 
 
 export const createSession =  (loginDetails) => {
-  console.log(loginDetails);
+  // console.log(loginDetails);
   sessionStorage.setItem("loginData", JSON.stringify(loginDetails.response.data));
   sessionStorage.setItem("loginToken", loginDetails.response.headers['x-auth-token']);
 }
