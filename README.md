@@ -2,6 +2,19 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Project Installation Guide
+1. Clone this repository in your local storage.
+2. Open the folder in terminal and enter <span style="color : green">npm install</span> command to initialize the React app and its dependencies.
+3. If you don't have the backend code, get it from https://github.com/mohinishjoshi/ecommerce-upgrad/tree/master
+4. Configure the backend code by finding <span style="color : blue">application.properties</span> file in <u> src > main > resources</u>
+AND add these lines (You can use MongoDB Compass or Atlas): 
+spring.data.mongodb.uri=mongodb://localhost:<MONGO_PORT>/<DB_NAME>
+server.PORT=8080
+(We have user MongoDB Compass above)
+5. Now build this backend code by opening it in terminal and enter <span style="color : green">mvn spring-boot:run</span> and run it. The backend will now run on PORT 8080 or whatever you chosed in server.PORT property as port number.
+6. (IF you changed server.PORT property) In the frontend folder, change the line: target: 'http://localhost:<BACKEND_PORT>' , in <span style="color : blue">setupProxy.js</span> present in <u>src</u> folder. Similarly "proxy": "http://localhost:<BACKEND_PORT>" in <span style="color : blue">package.json</span>.
+7. Now start the frontend by opening the project in terminal and enter <span style="color : green">npm start</span> command. The frontend should run on localhost:3000, and project UI would be accessible to you on same path in browser i.e. localhost:3000.
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -39,32 +52,3 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
