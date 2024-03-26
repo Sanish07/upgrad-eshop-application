@@ -6,6 +6,8 @@ import { styled } from '@mui/material/styles';
 import { useNavigate, useParams } from "react-router-dom";
 import MessageBox from "../../TimedMessageBox/MessageBox";
 import { addNewAddressForUser, fetchSavedAddressesForUser } from "../../../common/services/orderServices";
+import { useDispatch } from "react-redux";
+import { setActiveAddress } from "../../../common/store/actions/orderActions";
 
 const SelectAddressPage = ({ setStep }) => {
   const[addressValue, setAddressValue] = useState(""); //Select address component's value
@@ -25,6 +27,7 @@ const SelectAddressPage = ({ setStep }) => {
 
   const navigate = useNavigate();
   const { id } = useParams();
+  const dispatch = useDispatch();
   
   const StyledArrow = styled(KeyboardArrowDownIcon)({
     borderLeft: '1px solid gray', // Add left border to the icon
@@ -113,6 +116,10 @@ const SelectAddressPage = ({ setStep }) => {
     setAddressValue(findAddressFromList);
   }
 
+  useEffect(()=>{
+    dispatch(setActiveAddress(addressValue));
+  },[addressValue]);
+
   return (
     <>
       <FormControl sx={{width: 1/2, mt :  4}}>
@@ -129,7 +136,7 @@ const SelectAddressPage = ({ setStep }) => {
                 let objAddress = allSavedAddresses.find((item) => {
                    return item.id === selected
                  }); 
-                 return <span>{`${objAddress.name} ---> ${objAddress.street}, ${objAddress.city}`}</span>
+                 return <span>{`${objAddress.street}, ${objAddress.city}, ${objAddress.state}.`}</span>
             }
           }}
           displayEmpty
@@ -152,7 +159,7 @@ const SelectAddressPage = ({ setStep }) => {
             (allSavedAddresses.length !== 0)
             ? allSavedAddresses.map((item, index)=>(
               <MenuItem key={index} value={item.id}>
-                {`${item.name} ---> ${item.street}, ${item.city}.`}
+                {`${item.street}, ${item.city}, ${item.state}.`}
               </MenuItem>
             ))
             :<MenuItem></MenuItem>

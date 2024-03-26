@@ -1,38 +1,43 @@
 import React from 'react';
 import { Stack, Button, Paper, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { placeProductOrder } from '../../../common/services/orderServices';
 
 const ConfirmOrderPage = ({setStep, productInfo}) => {
 
-    const {productQty, productDetails} = productInfo;
-    const totalPrice = productQty * productDetails.price;
+    const {productQty, productDetails} = productInfo; //Contains prooduct order info
+    const totalPrice = productQty * productDetails.price; //Total price of an order
 
     const navigate = useNavigate();
+    const addressFromAPI = useSelector(state => state.orderStore);
 
-    const address = {
-        name : "Ryan Sommerfield",
-        contactNumber : "1234567890",
-        street : "Police Line",
-        landmark : "Futala Lake",
-        city : "Nagpur",
-        state : "Maharashtra",
-        zipcode : "441901"
-    }
+    const address = addressFromAPI.activeAddress; //Contains address of user
 
     const handleReturnToAddressPage = () =>{ //Go back to select address page
         setStep(1);
     }
 
     const handlePlaceOrder = () =>{ //Handle the request to place the order and navigate back to /products route(homepage) 
-        navigate('/products', {
-            state : {
-                message : 'Order placed successfully',
-                color : 'green'
-            }
-        })
+        placeProductOrder(productInfo, address).then((response)=>{
+            navigate('/products', {
+                state : {
+                    message : 'Order placed successfully',
+                    color : 'green'
+                }
+            })
+        }).catch((error)=>{
+            navigate('/products', {
+                state : {
+                    message : 'Some problem occured while placing the order.',
+                    color : 'red'
+                }
+            })
+        });
     };
 
     // console.log('product details : '+ JSON.stringify(productInfo));
+    // console.log('address details : '+ JSON.stringify(addressFromAPI.activeAddress));
 
     return(
         <>
